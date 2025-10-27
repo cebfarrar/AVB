@@ -18,6 +18,7 @@ Predictive modeling of apartment rental prices across AvalonBay's US portfolio u
 - [Learning Resources](#learning-resources)
 - [Learning Resources](#notes)
 - [Sample Output](#sample-output)
+- [Contact](#contact)
 
 ---
 ## Project Overview
@@ -297,10 +298,6 @@ This project was developed using techniques from:
 
 ---
 
-**Contact**: charlie.farrar@icloud.com  
-**GitHub**: github.com/cebfarrar
-
----
 
 ## Sample Output
 ```
@@ -326,5 +323,11 @@ Top 5 cities by apartment count:
 4. Seattle: 4,567 apartments
 5. San Francisco: 3,876 apartments
 ```
+
+---
+
+# Contact
+**Contact**: charlie.farrar@icloud.com  
+**GitHub**: github.com/cebfarrar
 
 ---
