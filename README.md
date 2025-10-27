@@ -187,11 +187,10 @@ Upper bound:         $782.3M  (+1.3% vs consensus)
 Zacks Consensus:     $772.1M  (baseline)
 ```
 
-**In the spirit of being bold: this model estimates AvalonBay will report approximately $746M for Q3 2025, compared to the Zacks consensus of $772M.**
+In the spirit of being bold: this model estimates AvalonBay will report approximately $755M for Q3 2025, compared to the Zacks consensus of $772M.
+However, it's important to note that the $17.0M difference (2.2%) between this prediction and consensus falls well within the model's margin of error. With an MAE of 4.2% of average rent, the model's inherent uncertainty (±$27M at the quarterly level) is larger than the gap to consensus. Statistically, this prediction and the Zacks estimate are not meaningfully different - the variance could be entirely due to random prediction error rather than a genuine signal that AvalonBay will miss expectations.
 
-However, it's important to note that the $26.5M difference (3.4%) between this prediction and consensus falls **well within the model's margin of error**. With an MAE of 4.2% of average rent, the model's inherent uncertainty (±$27M at the quarterly level) is actually larger than the gap to consensus. **Statistically, this prediction and the Zacks estimate are not meaningfully different** - the variance could be entirely due to random prediction error rather than a genuine signal that AvalonBay will miss expectations.
-
-The Zacks consensus ($772M) sits comfortably within the model's conservative range ($718M - $773M), meaning both estimates are effectively consistent with each other given the statistical uncertainty involved.
+The Zacks consensus ($772M) sits comfortably within the model's conservative range ($728M - $782M), meaning both estimates are effectively consistent with each other given the statistical uncertainty involved.
 
 ---
 
