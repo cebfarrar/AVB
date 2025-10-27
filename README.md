@@ -11,9 +11,12 @@ Predictive modeling of apartment rental prices across AvalonBay's US portfolio u
 - [Project Overview](#project-overview)
 - [Results](#results)
 - [Methodology](#methodology)
+- [Data Coverage Notes](#data-coverage-notes)
 - [Revenue Prediction & Forecast](#revenue-prediction--forecast)
 - [Technical Stack](#technical-stack)
 - [Future Improvements](#future-improvements)
+- [Learning Resources](#learning-resources)
+- [Learning Resources](#notes)
 - [Sample Output](#sample-output)
 
 ---
