@@ -1,7 +1,8 @@
 # AvalonBay Communities Rental Pricing Model
 
 Predictive modeling of apartment rental prices across AvalonBay's US portfolio using web-scraped data and machine learning.
-<img width="400" height="400" alt="5382f508a8c09c894de6c5d439c023d5" src="https://github.com/user-attachments/assets/26ab5bd7-c356-4b31-90ec-e3c0edb809ce" />
+<div align="center" style="text-align: center">
+    <img width="700" height="700" alt="5382f508a8c09c894de6c5d439c023d5" src="https://github.com/user-attachments/assets/26ab5bd7-c356-4b31-90ec-e3c0edb809ce" />
 
 ## Project Overview
 
