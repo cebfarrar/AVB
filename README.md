@@ -62,7 +62,7 @@ Validation was performed on 1,316 apartments completely withheld from training, 
 
 **Location features** (binary encoding):
 - 12 state-level indicators (California, New York, Texas, etc.)
-- 165+ city-level indicators (Boston, Seattle, Denver, etc.)
+- 165 city-level indicators (Boston, Seattle, Denver, etc.)
 
 Total features: 181 (4 continuous + 177 binary location indicators)
 
