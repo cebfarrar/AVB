@@ -45,8 +45,8 @@ Validation was performed on 1,316 apartments completely withheld from training, 
 **Web scraping** using Python (BeautifulSoup, Selenium):
 - Scraped AvalonBay's public website for all listed properties - Used browser DevTools to identify the API endpoint behind AvalonBay's interactive property map, containing all currently available properties.
 - Collected apartment-level features (bed, bath, sqft, floor) and current rental prices
-- Total: 76,545 apartments across 225 properties
-**Property coverage note**: AvalonBay reports 276 properties in SEC filings. My dataset includes 225 (81% coverage). The 51 missing properties consist of 3 properties opening in 2026 and 48 properties without interactive maps on the website, making API-based scraping impossible.
+- Total: 76,545 apartments across 229 properties
+**Property coverage note**: AvalonBay reports 276 properties in SEC filings. My dataset includes 229 (82.9% coverage). The 48 missing properties consist of 3 properties opening in 2026 and 45 properties without interactive maps on the website, making API-based scraping impossible.
 
 **Data Sources**:
 - Primary: AvalonBay public listings
@@ -229,7 +229,7 @@ Listed (known prices): 6,578
 Unlisted (predicted): 69,967
 Training set: 5,262
 Test set: 1,316
-Properties: 225
+Properties: 229
 Coverage: 86% of operational portfolio
 
 === Geographic Distribution ===
