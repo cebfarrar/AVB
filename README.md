@@ -177,8 +177,9 @@ numpy==1.24.3
 - Rent not utilized (property on market as of October 27, 2025): $21,432,498
 ```
 
-**Quarterly calculation:**
+
 ```
+**Quarterly calculation**:
 Monthly rental income:
   $224,558,605 + $35,631,612 - $21,432,498 = $238,757,719
 
@@ -187,14 +188,10 @@ Quarterly income (3 months):
 
 Furnishing adjustment (10% furnished @ 41% premium):
   $716,273,157 × 1.041 = $745,640,356
-```
 
 **Q3 2025 Estimated Revenue: $745.6M**
 
----
-
 ### Prediction vs. Consensus
-```
 Model prediction:    $745.6M  (-3.4% vs consensus)
 Lower bound:         $718.1M  (-7.0% vs consensus)
 Upper bound:         $773.2M  (+0.1% vs consensus)
