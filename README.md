@@ -18,7 +18,7 @@ Mean Absolute Error: $124.80
 R² Score: 0.944
 Adjusted R² Score: 0.935
 MAE as % of average rent: 4.2%
-Average rent: ~$2,976
+Average rent: ~$2,933
 ```
 
 ### Dataset Summary
@@ -32,9 +32,9 @@ Average rent: ~$2,976
 
 ### What the results mean
 
-The model achieves **R² = 0.944**, meaning it explains 94.4% of rental price variation. The **MAE of $124.80** means predictions are typically within ±$125 of actual market prices - **4.2% error** relative to average rent.
+The model achieves **R² = 0.944**, meaning it explains 94.4% of rental price variation. The **MAE of $124.80** means predictions are typically within ±$125 of actual market prices - **4.25% error** relative to average rent.
 
-Validation was performed on 1,316 apartments completely withheld from training, ensuring the model generalizes to unseen data.
+Validation was performed on 1,316 apartments completely withheld from training, ensuring the model generalises to unseen data.
 
 ---
 
@@ -102,12 +102,12 @@ predictions = model.predict(X_test)
 - Train on 5,262 apartments (80%)
 - Test on 1,316 apartments (20%)
 - Test set completely withheld during training
-- Prevents overfitting and ensures generalization
+- Prevents overfitting and ensures generalisation
 
 **Metrics**:
 - **R² Score**: Proportion of variance explained (0 = no better than mean, 1 = perfect)
 - **MAE**: Average absolute prediction error in dollars
-- **Adjusted R²**: R² adjusted for number of features (penalizes model complexity)
+- **Adjusted R²**: R² adjusted for number of features (penalises model complexity)
 
 ---
 
@@ -164,7 +164,7 @@ numpy==1.24.3
 ├── scrape_current_listings.py         # Scraper for listed apartments
 ├── scrape_total_portfolio.py          # Scraper for all properties
 ├── /data/
-│   ├── sample_data.csv                # Sample (10 rows, anonymized)
+│   ├── sample_data.csv                # Sample (10 rows, anonymised)
 │   └── data_dictionary.md             # Feature descriptions
 └── /results/
     └── model_performance.txt          # Detailed results
