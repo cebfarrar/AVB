@@ -159,31 +159,31 @@ predictions = model.predict(X_test)
 The model predicts Q3 2025 revenues from the following sources (monthly):
 ```
 Rent revenue from properties with interactive map (API access): $224,558,605
-Rent revenue from properties without interactive map (no API access): $35,631,612
+Rent revenue from properties without interactive map (no API access): $38,677,245.51
 Rent not utilized (property on market as of October 27, 2025): $21,432,498
 ```
 
 **Quarterly calculation:**
 ```
 Monthly rental income:
-  $224,558,605 + $35,631,612 - $21,432,498 = $238,757,719
+  $224,558,605 + $38,677,245.51 - $21,432,498 = $241,803,352.51
 
 Quarterly income (3 months):
-  $238,757,719 × 3 = $716,273,157
+  $241,803,352.51 × 3 = $725,410,057.53
 
 Furnishing adjustment (10% furnished @ 41% premium):
-  $716,273,157 × 1.041 = $745,640,356
+  $725,410,057.53 × 1.041 = $755,151,869.89
 ```
 
-**Q3 2025 Estimated Revenue: $745.6M**
+**Q3 2025 Estimated Revenue: $755.2M**
 
 ---
 
 ### Prediction vs. Consensus
 ```
-Model prediction:    $745.6M  (-3.4% vs consensus)
-Lower bound:         $718.1M  (-7.0% vs consensus)
-Upper bound:         $773.2M  (+0.1% vs consensus)
+Model prediction:    $755.2M  (-2.2% vs consensus)
+Lower bound:         $728.1M  (-5.7% vs consensus)
+Upper bound:         $782.3M  (+1.3% vs consensus)
 Zacks Consensus:     $772.1M  (baseline)
 ```
 
