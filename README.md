@@ -160,7 +160,6 @@ numpy==1.24.3
 ```
 /avalonbay-rental-pricing/
 ├── README.md                          # This file
-├── requirements.txt                   # Python dependencies
 ├── train_model.py                     # Model training script
 ├── scrape_current_listings.py         # Scraper for listed apartments
 ├── scrape_total_portfolio.py          # Scraper for all properties
@@ -178,7 +177,6 @@ numpy==1.24.3
 **Model enhancements**:
 - Incorporate temporal features (seasonality, market trends)
 - Add property-level amenities (pool, gym, parking, pet policy)
-- Experiment with gradient boosting (XGBoost, LightGBM)
 - Feature importance analysis to identify key price drivers
 
 **Data expansion**:
@@ -200,6 +198,7 @@ This project was developed using techniques from:
 - [Kaggle's Intro to Machine Learning](https://www.kaggle.com/learn/intro-to-machine-learning)
 - scikit-learn documentation
 - Web scraping tutorials (BeautifulSoup, Selenium)
+- Boot.dev: Learn to code in Python, Build a Bookbot in Python, Learn Object Oriented Programming in Python, Learn Functional Programming in Python.
 
 ---
 
@@ -213,7 +212,7 @@ This project was developed using techniques from:
 ---
 
 **Contact**: charlie.farrar@icloud.com  
-**GitHub**: github.com/charliefarrar
+**GitHub**: github.com/cebfarrar
 
 ---
 
@@ -230,7 +229,7 @@ Listed (known prices): 6,578
 Unlisted (predicted): 69,967
 Training set: 5,262
 Test set: 1,316
-Properties: 273
+Properties: 225
 Coverage: 86% of operational portfolio
 
 === Geographic Distribution ===
