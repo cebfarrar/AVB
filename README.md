@@ -8,6 +8,15 @@ Predictive modeling of apartment rental prices across AvalonBay's US portfolio u
     <img width="400" height="400" alt="5382f508a8c09c894de6c5d439c023d5" src="https://github.com/user-attachments/assets/26ab5bd7-c356-4b31-90ec-e3c0edb809ce" />
 </div>
 
+- [Project Overview](#projectoverview)
+- [Results](#results)
+- [Methodology](#methodology)
+- [Revenue Prediction & Forecast](#revenue-prediction--forecast)
+- [Technical Stack](#technical-stack)
+- [Future Improvements](#future-improvements)
+- [Sample Output](#sample-output)
+
+---
 ## Project Overview
 
 **Goal**: Predict rental prices for AvalonBay Communities' apartment portfolio using property characteristics and location data.
@@ -42,7 +51,7 @@ Validation was performed on 1,316 apartments completely withheld from training, 
 
 ---
 
-## Methodology
+# Methodology
 
 ### 1. Data Collection
 
