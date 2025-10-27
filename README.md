@@ -198,8 +198,8 @@ The Zacks consensus ($772M) sits comfortably within the model's conservative ran
 
 The prediction carries statistical uncertainty from the MAE of $124.80 per apartment (4.2% of average rent):
 
-- **Conservative range**: $718M - $773M (±$27M)
-- **95% confidence interval**: $694M - $797M (±$51M)
+- **Conservative range**: $728M - $782M (±$27M)
+- **95% confidence interval**: $704M - $806M (±$51M)
 
 Since the model's prediction error (±3.4%) is smaller than its typical error rate (4.2%), **the difference from consensus could easily be explained by normal statistical variation** rather than indicating AvalonBay will actually underperform.
 
