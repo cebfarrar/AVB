@@ -1,6 +1,7 @@
 # AvalonBay Communities Rental Pricing Model
 
 Predictive modeling of apartment rental prices across AvalonBay's US portfolio using web-scraped data and machine learning.
+<img width="400" height="400" alt="5382f508a8c09c894de6c5d439c023d5" src="https://github.com/user-attachments/assets/26ab5bd7-c356-4b31-90ec-e3c0edb809ce" />
 
 ## Project Overview
 
@@ -25,12 +26,12 @@ Average rent: ~$2,976
 - **Currently listed** (known prices): 6,578 apartments
 - **Unlisted** (predicted prices): 69,967 apartments
 - **Train/Test split**: 80% train (5,262) / 20% test (1,316)
-- **Geographic coverage**: 16 US states, 170+ cities
+- **Geographic coverage**: 12 US states, 165 cities
 - **Portfolio coverage**: 86% of AvalonBay's operational units (per SEC filings)
 
 ### What the results mean
 
-The model achieves **R² = 0.944**, meaning it explains 94.4% of rental price variation. The **MAE of $125** means predictions are typically within ±$125 of actual market prices - just **4.2% error** relative to average rent.
+The model achieves **R² = 0.944**, meaning it explains 94.4% of rental price variation. The **MAE of $124.80** means predictions are typically within ±$125 of actual market prices - **4.2% error** relative to average rent.
 
 Validation was performed on 1,316 apartments completely withheld from training, ensuring the model generalizes to unseen data.
 
@@ -41,8 +42,8 @@ Validation was performed on 1,316 apartments completely withheld from training, 
 ### 1. Data Collection
 
 **Web scraping** using Python (BeautifulSoup, Selenium):
-- Scraped AvalonBay's public website for all listed properties
-- Collected apartment-level features and current rental prices
+- Scraped AvalonBay's public website for all listed properties - Used browser DevTools to identify the API endpoint behind AvalonBay's interactive property map, containing all currently available properties.
+- Collected apartment-level features (bed, bath, sqft, floor) and current rental prices
 - Total: 76,545 apartments across 273 properties
 
 **Data Sources**:
@@ -58,10 +59,10 @@ Validation was performed on 1,316 apartments completely withheld from training, 
 - `floor`: Floor number within building
 
 **Location features** (binary encoding):
-- 16 state-level indicators (California, New York, Texas, etc.)
-- 170+ city-level indicators (Boston, Seattle, Denver, etc.)
+- 12 state-level indicators (California, New York, Texas, etc.)
+- 165+ city-level indicators (Boston, Seattle, Denver, etc.)
 
-Total features: 190 (4 continuous + 186 binary location indicators)
+Total features: 181 (4 continuous + 177 binary location indicators)
 
 ### 3. Model Selection & Training
 
