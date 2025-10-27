@@ -172,9 +172,9 @@ numpy==1.24.3
 
 ---
 **Looking Forward:**
-Rent revenue from properties with interactive map (API access): $224,558,605
-Rent revenue from properties without interactive map (no API access): $35,631,612
-Rent not utilized (property on market as of October 27, 2025): $21,432,498
+- Rent revenue from properties with interactive map (API access): $224,558,605
+- Rent revenue from properties without interactive map (no API access): $35,631,612
+- Rent not utilized (property on market as of October 27, 2025): $21,432,498
 ```
 
 **Quarterly calculation:**
