@@ -152,6 +152,7 @@ predictions = model.predict(X_test)
 
 ## Revenue Prediction & Forecast
 
+**Using the model to test real-world predictive power**: With comprehensive portfolio coverage and October earnings release approaching, I'm using the model to forecast Q3 2025 revenues as a validation exercise.
 **AvalonBay's Q3 2025 Earnings Release: October 29, 2025**
 
 ### Model-Based Revenue Estimate
@@ -160,13 +161,13 @@ The model predicts Q3 2025 revenues from the following sources (monthly):
 ```
 Rent revenue from properties with interactive map (API access): $224,558,605
 Rent revenue from properties without interactive map (no API access): $38,677,245.51
-Rent not utilized (property on market as of October 27, 2025): $21,432,498
+Less: Rent not utilized (property on market as of October 27, 2025): $21,432,498
 ```
 
 **Quarterly calculation:**
 ```
 Monthly rental income:
-  $224,558,605 + $38,677,245.51 - $21,432,498 = $241,803,352.51
+  Net Monthly: $224,558,605 + $38,677,245.51 - $21,432,498 = $241,803,352.51
 
 Quarterly income (3 months):
   $241,803,352.51 × 3 = $725,410,057.53
@@ -181,15 +182,14 @@ Furnishing adjustment (10% furnished @ 41% premium):
 
 ### Prediction vs. Consensus
 ```
-Model prediction:    $755.2M  (-2.2% vs consensus)
-Lower bound:         $728.1M  (-5.7% vs consensus)
-Upper bound:         $782.3M  (+1.3% vs consensus)
-Zacks Consensus:     $772.1M  (baseline)
+**Model prediction: $755.2M** (-2.2% vs consensus)
+**Zacks Consensus: $772.1M**
+
+The $17M gap (2.2%) falls within the model's statistical uncertainty. With an MAE of 4.2%, the prediction range ($728M-$782M) comfortably includes the consensus estimate. **These predictions are statistically indistinguishable** - any difference could be random variation rather than signal.
 ```
+**Result will be known on October 29, 2025.**
 
-In the spirit of being bold: this model estimates AvalonBay will report approximately $755M for Q3 2025, compared to the Zacks consensus of $772M.
-However, it's important to note that the $17.0M difference (2.2%) between this prediction and consensus falls well within the model's margin of error. With an MAE of 4.2% of average rent, the model's inherent uncertainty (±$27M at the quarterly level) is larger than the gap to consensus. Statistically, this prediction and the Zacks estimate are not meaningfully different - the variance could be entirely due to random prediction error rather than a genuine signal that AvalonBay will miss expectations.
-
+This model estimates AvalonBay will report approximately $755M for Q3 2025, compared to the Zacks consensus of $772M.
 The Zacks consensus ($772M) sits comfortably within the model's conservative range ($728M - $782M), meaning both estimates are effectively consistent with each other given the statistical uncertainty involved.
 
 ---
@@ -200,8 +200,6 @@ The prediction carries statistical uncertainty from the MAE of $124.80 per apart
 
 - **Conservative range**: $728M - $782M (±$27M)
 - **95% confidence interval**: $704M - $806M (±$51M)
-
-Since the model's prediction error (±3.4%) is smaller than its typical error rate (4.2%), **the difference from consensus could easily be explained by normal statistical variation** rather than indicating AvalonBay will actually underperform.
 
 ---
 
