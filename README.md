@@ -1,4 +1,4 @@
-# AvalonBay Communities Rental Pricing Model
+<img width="66" height="17" alt="image" src="https://github.com/user-attachments/assets/a3f8d594-43fb-4c28-a4c3-7b110f19504a" /># AvalonBay Communities Rental Pricing Model
 
 Predictive modeling of apartment rental prices across AvalonBay's US portfolio using web-scraped data and machine learning.
 <div align="center" style="text-align: center">
@@ -116,9 +116,9 @@ predictions = model.predict(X_test)
 
 ### Why 76,545 apartments vs. AvalonBay's reported figures?
 
-**Official AvalonBay figures (Q3 2025)**:
+**Official AvalonBay figures **:
 - Website: 97,212 apartment homes
-- SEC filings: 88,669 operational units
+- SEC filings (Q2 2025): 88,669 operational units
 
 **My dataset (76,545) includes only**:
 - Publicly listed properties on AvalonBay's website
@@ -171,6 +171,51 @@ numpy==1.24.3
 ```
 
 ---
+**Looking Forward:**
+Rent revenue from properties with interactive map (API access): $224,558,605
+Rent revenue from properties without interactive map (no API access): $35,631,612
+Rent not utilized (property on market as of October 27, 2025): $21,432,498
+```
+
+**Quarterly calculation:**
+```
+Monthly rental income:
+  $224,558,605 + $35,631,612 - $21,432,498 = $238,757,719
+
+Quarterly income (3 months):
+  $238,757,719 × 3 = $716,273,157
+
+Furnishing adjustment (10% furnished @ 41% premium):
+  $716,273,157 × 1.041 = $745,640,356
+```
+
+**Q3 2025 Estimated Revenue: $745.6M**
+
+---
+
+### Prediction vs. Consensus
+```
+Model prediction:    $745.6M  (-3.4% vs consensus)
+Lower bound:         $718.1M  (-7.0% vs consensus)
+Upper bound:         $773.2M  (+0.1% vs consensus)
+Zacks Consensus:     $772.1M  (baseline)
+
+
+In the spirit of being bold: this model estimates AvalonBay will miss consensus revenue expectations by $26.5M (3.4%), reporting approximately $746M vs. the expected $772M.
+
+Model Uncertainty
+The prediction carries statistical uncertainty from the MAE of $124.80 per apartment:
+
+Conservative range: $718M - $773M (±$27M)
+95% confidence interval: $694M - $797M (±$51M)
+
+The Zacks consensus ($772M) falls at the upper end of the conservative range, suggesting the market may be pricing in more optimistic occupancy or rental rate assumptions than the model predicts.
+
+This forecast has several important limitations. Most significantly, the prediction is based on a single snapshot taken on October 27, 2025, without any historical tracking of listing duration. The model assumes all apartments currently on the market have been vacant for the entire Q3 period, which likely introduces downward bias. In reality, many of these apartments were probably occupied for most of the quarter and only recently became available. This creates data corruption because recent move-outs are incorrectly counted as full-quarter vacancies. Without a backlog of previously scraped data showing how long each apartment has been listed, the model cannot distinguish between a unit vacant all quarter versus one that just hit the market yesterday.
+
+Additional limitations include 48 properties (14% of portfolio) that lack interactive maps and rely on estimated revenues, potential underrepresentation of properties under development or in lease-up phase, and incomplete capture of joint ventures and partial ownership structures.
+
+---
 
 ## Future Improvements
 
@@ -189,6 +234,9 @@ numpy==1.24.3
 - Interactive dashboard for price predictions
 - API endpoint for real-time predictions
 - Automated monthly retraining pipeline
+
+**Continual Scraping**:
+- To overcome the snapshot limitations described above, the scraping scripts now run daily to capture real-time market data. This creates a historical backlog showing which apartments are listed and for how long, enabling the model to accurately distinguish between properties vacant all quarter versus recent listings. This continuous monitoring will hopefully improve occupancy modeling and revenue predictions for Q4 2025 results.
 
 ---
 
@@ -240,3 +288,5 @@ Top 5 cities by apartment count:
 4. Seattle: 4,567 apartments
 5. San Francisco: 3,876 apartments
 ```
+
+---
