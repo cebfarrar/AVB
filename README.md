@@ -1,9 +1,13 @@
-<img width="66" height="17" alt="image" src="https://github.com/user-attachments/assets/a3f8d594-43fb-4c28-a4c3-7b110f19504a" /># AvalonBay Communities Rental Pricing Model
+<img width="66" height="17" alt="image" src="https://github.com/user-attachments/assets/a3f8d594-43fb-4c28-a4c3-7b110f19504a" />
+
+# AvalonBay Communities Rental Pricing Model
 
 Predictive modeling of apartment rental prices across AvalonBay's US portfolio using web-scraped data and machine learning.
+
 <div align="center" style="text-align: center">
     <img width="400" height="400" alt="5382f508a8c09c894de6c5d439c023d5" src="https://github.com/user-attachments/assets/26ab5bd7-c356-4b31-90ec-e3c0edb809ce" />
 </div>
+
 ## Project Overview
 
 **Goal**: Predict rental prices for AvalonBay Communities' apartment portfolio using property characteristics and location data.
@@ -43,9 +47,11 @@ Validation was performed on 1,316 apartments completely withheld from training, 
 ### 1. Data Collection
 
 **Web scraping** using Python (BeautifulSoup, Selenium):
-- Scraped AvalonBay's public website for all listed properties - Used browser DevTools to identify the API endpoint behind AvalonBay's interactive property map, containing all currently available properties.
+- Scraped AvalonBay's public website for all listed properties
+- Used browser DevTools to identify the API endpoint behind AvalonBay's interactive property map, containing all currently available properties
 - Collected apartment-level features (bed, bath, sqft, floor) and current rental prices
 - Total: 76,545 apartments across 229 properties
+
 **Property coverage note**: AvalonBay reports 276 properties in SEC filings. My dataset includes 229 (82.9% coverage). The 48 missing properties consist of 3 properties opening in 2026 and 45 properties without interactive maps on the website, making API-based scraping impossible.
 
 **Data Sources**:
@@ -116,7 +122,7 @@ predictions = model.predict(X_test)
 
 ### Why 76,545 apartments vs. AvalonBay's reported figures?
 
-**Official AvalonBay figures **:
+**Official AvalonBay figures**:
 - Website: 97,212 apartment homes
 - SEC filings (Q2 2025): 88,669 operational units
 
@@ -132,6 +138,74 @@ predictions = model.predict(X_test)
 - Recently sold properties (reporting lag)
 
 **Coverage**: 76,545 / 88,669 = **86% of operational portfolio** ✓
+
+---
+
+## Revenue Prediction & Forecast
+
+**AvalonBay's Q3 2025 Earnings Release: October 29, 2025**
+
+### Model-Based Revenue Estimate
+
+The model predicts Q3 2025 revenues from the following sources (monthly):
+```
+Rent revenue from properties with interactive map (API access): $224,558,605
+Rent revenue from properties without interactive map (no API access): $35,631,612
+Rent not utilized (property on market as of October 27, 2025): $21,432,498
+```
+
+**Quarterly calculation:**
+```
+Monthly rental income:
+  $224,558,605 + $35,631,612 - $21,432,498 = $238,757,719
+
+Quarterly income (3 months):
+  $238,757,719 × 3 = $716,273,157
+
+Furnishing adjustment (10% furnished @ 41% premium):
+  $716,273,157 × 1.041 = $745,640,356
+```
+
+**Q3 2025 Estimated Revenue: $745.6M**
+
+---
+
+### Prediction vs. Consensus
+```
+Model prediction:    $745.6M  (-3.4% vs consensus)
+Lower bound:         $718.1M  (-7.0% vs consensus)
+Upper bound:         $773.2M  (+0.1% vs consensus)
+Zacks Consensus:     $772.1M  (baseline)
+```
+
+**In the spirit of being bold: this model estimates AvalonBay will report approximately $746M for Q3 2025, compared to the Zacks consensus of $772M.**
+
+However, it's important to note that the $26.5M difference (3.4%) between this prediction and consensus falls **well within the model's margin of error**. With an MAE of 4.2% of average rent, the model's inherent uncertainty (±$27M at the quarterly level) is actually larger than the gap to consensus. **Statistically, this prediction and the Zacks estimate are not meaningfully different** - the variance could be entirely due to random prediction error rather than a genuine signal that AvalonBay will miss expectations.
+
+The Zacks consensus ($772M) sits comfortably within the model's conservative range ($718M - $773M), meaning both estimates are effectively consistent with each other given the statistical uncertainty involved.
+
+---
+
+### Model Uncertainty
+
+The prediction carries statistical uncertainty from the MAE of $124.80 per apartment (4.2% of average rent):
+
+- **Conservative range**: $718M - $773M (±$27M)
+- **95% confidence interval**: $694M - $797M (±$51M)
+
+Since the model's prediction error (±3.4%) is smaller than its typical error rate (4.2%), **the difference from consensus could easily be explained by normal statistical variation** rather than indicating AvalonBay will actually underperform.
+
+---
+
+### Known Limitations
+
+This forecast has several important limitations. Most significantly, the prediction is based on a single snapshot taken on October 27, 2025, without any historical tracking of listing duration. The model assumes all apartments currently on the market have been vacant for the entire Q3 period, which likely introduces downward bias. In reality, many of these apartments were probably occupied for most of the quarter and only recently became available. This creates data corruption because recent move-outs are incorrectly counted as full-quarter vacancies. Without a backlog of previously scraped data showing how long each apartment has been listed, the model cannot distinguish between a unit vacant all quarter versus one that just hit the market yesterday.
+
+Additional limitations include 48 properties (14% of portfolio) that lack interactive maps and rely on estimated revenues, potential underrepresentation of properties under development or in lease-up phase, and incomplete capture of joint ventures and partial ownership structures.
+
+---
+
+**Result will be known on October 29, 2025**
 
 ---
 
@@ -171,48 +245,6 @@ numpy==1.24.3
 ```
 
 ---
-**Looking Forward:**
-- Rent revenue from properties with interactive map (API access): $224,558,605
-- Rent revenue from properties without interactive map (no API access): $35,631,612
-- Rent not utilized (property on market as of October 27, 2025): $21,432,498
-```
-
-
-```
-**Quarterly calculation**:
-Monthly rental income:
-  $224,558,605 + $35,631,612 - $21,432,498 = $238,757,719
-
-Quarterly income (3 months):
-  $238,757,719 × 3 = $716,273,157
-
-Furnishing adjustment (10% furnished @ 41% premium):
-  $716,273,157 × 1.041 = $745,640,356
-
-**Q3 2025 Estimated Revenue: $745.6M**
-
-### Prediction vs. Consensus
-Model prediction:    $745.6M  (-3.4% vs consensus)
-Lower bound:         $718.1M  (-7.0% vs consensus)
-Upper bound:         $773.2M  (+0.1% vs consensus)
-Zacks Consensus:     $772.1M  (baseline)
-
-
-In the spirit of being bold: this model estimates AvalonBay will miss consensus revenue expectations by $26.5M (3.4%), reporting approximately $746M vs. the expected $772M.
-
-Model Uncertainty
-The prediction carries statistical uncertainty from the MAE of $124.80 per apartment:
-
-Conservative range: $718M - $773M (±$27M)
-95% confidence interval: $694M - $797M (±$51M)
-
-The Zacks consensus ($772M) falls at the upper end of the conservative range, suggesting the market may be pricing in more optimistic occupancy or rental rate assumptions than the model predicts.
-
-This forecast has several important limitations. Most significantly, the prediction is based on a single snapshot taken on October 27, 2025, without any historical tracking of listing duration. The model assumes all apartments currently on the market have been vacant for the entire Q3 period, which likely introduces downward bias. In reality, many of these apartments were probably occupied for most of the quarter and only recently became available. This creates data corruption because recent move-outs are incorrectly counted as full-quarter vacancies. Without a backlog of previously scraped data showing how long each apartment has been listed, the model cannot distinguish between a unit vacant all quarter versus one that just hit the market yesterday.
-
-Additional limitations include 48 properties (14% of portfolio) that lack interactive maps and rely on estimated revenues, potential underrepresentation of properties under development or in lease-up phase, and incomplete capture of joint ventures and partial ownership structures.
-
----
 
 ## Future Improvements
 
@@ -243,7 +275,7 @@ This project was developed using techniques from:
 - [Kaggle's Intro to Machine Learning](https://www.kaggle.com/learn/intro-to-machine-learning)
 - scikit-learn documentation
 - Web scraping tutorials (BeautifulSoup, Selenium)
-- Boot.dev: Learn to code in Python, Build a Bookbot in Python, Learn Object Oriented Programming in Python, Learn Functional Programming in Python.
+- Boot.dev: Learn to code in Python, Build a Bookbot in Python, Learn Object Oriented Programming in Python, Learn Functional Programming in Python
 
 ---
 
