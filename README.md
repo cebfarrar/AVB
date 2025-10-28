@@ -13,13 +13,15 @@ Predictive modeling of apartment rental prices across AvalonBay's US portfolio u
 - [Methodology](#methodology)
 - [Data Coverage Notes](#data-coverage-notes)
 - [Revenue Prediction & Forecast](#revenue-prediction--forecast)
-- [Technical Stack](#technical-stack)
+- [Repository Structure](#repository-structure)
 - [Future Improvements](#future-improvements)
 - [Learning Resources](#learning-resources)
 - [Learning Resources](#notes)
 - [Sample Output](#sample-output)
 - [Workflow](#workflow)
+- [Technical Stack](#technical-stack)
 - [Contact](#contact)
+
 
 ---
 ## Project Overview
@@ -220,26 +222,6 @@ Additional limitations include 48 properties (14% of portfolio) that lack intera
 
 ---
 
-## Technical Stack
-```
-Python 3.x
-├── pandas: Data manipulation and analysis
-├── scikit-learn: Machine learning (Random Forest)
-├── BeautifulSoup: HTML parsing for web scraping
-├── Selenium: Dynamic content scraping
-└── numpy: Numerical computations
-```
-
-**Requirements**:
-```
-pandas==2.0.3
-scikit-learn==1.3.0
-beautifulsoup4==4.12.2
-selenium==4.10.0
-numpy==1.24.3
-```
-
----
 
 ## Repository Structure
 ```
@@ -367,6 +349,27 @@ python scripts/5_scikit_missing.py
 - **Output**: `data/missing_properties_predictions.csv`
 - **Purpose**: Estimates rent for properties without detailed Sightmap data
 ```
+---
+
+## Technical Stack
+```
+Python 3.x
+├── pandas: Data manipulation and analysis
+├── scikit-learn: Machine learning (Random Forest)
+├── BeautifulSoup: HTML parsing for web scraping
+├── Selenium: Dynamic content scraping
+└── numpy: Numerical computations
+```
+
+**Requirements**:
+```
+pandas==2.0.3
+scikit-learn==1.3.0
+beautifulsoup4==4.12.2
+selenium==4.10.0
+numpy==1.24.3
+```
+
 ---
 
 # Contact
