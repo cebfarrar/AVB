@@ -188,20 +188,11 @@ Furnishing adjustment (10% furnished @ 41% premium):
 ---
 
 ### Prediction vs. Consensus
-```
-**Model prediction: $755.2M** (-2.2% vs consensus)
-**Zacks Consensus: $772.1M**
 
-The $17M gap (2.2%) falls within the model's statistical uncertainty. With an MAE of 4.2%, the prediction range ($728M-$782M) comfortably includes the consensus estimate. **These predictions are statistically indistinguishable** - any difference could be random variation rather than signal.
-```
 **Result will be known on October 29, 2025.**
 
 This model estimates AvalonBay will report approximately $755M for Q3 2025, compared to the Zacks consensus of $772M.
 The Zacks consensus ($772M) sits comfortably within the model's conservative range ($728M - $782M), meaning both estimates are effectively consistent with each other given the statistical uncertainty involved.
-
----
-
-### Model Uncertainty
 
 The prediction carries statistical uncertainty from the MAE of $124.80 per apartment (4.2% of average rent):
 
