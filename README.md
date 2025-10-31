@@ -189,7 +189,7 @@ Furnishing adjustment (10% furnished @ 41% premium):
 
 ### Prediction vs. Consensus
 
-**Result will be known on October 29, 2025.**
+**Result will be known on October 29, 2025.** 
 
 This model estimates AvalonBay will report approximately $755M for Q3 2025, compared to the Zacks consensus of $772M.
 The Zacks consensus ($772M) sits comfortably within the model's conservative range ($728M - $782M), meaning both estimates are effectively consistent with each other given the statistical uncertainty involved.
@@ -198,6 +198,24 @@ The prediction carries statistical uncertainty from the MAE of $124.80 per apart
 
 - **Conservative range**: $728M - $782M (±$27M)
 - **95% confidence interval**: $704M - $806M (±$51M)
+
+Edit from 31 October 2025:
+## Post-Earnings Update (October 29, 2025)
+
+**Actual Q3 2025 Revenue**: $764.9M  
+**Model Prediction**: $755.2M  
+**Difference**: -$9.7M (-1.3%)
+<img width="493" height="169" alt="Screenshot 2025-10-31 at 23 01 09" src="https://github.com/user-attachments/assets/107e894e-e95c-4872-831a-f57593450d39" />
+
+### Analysis
+
+The model underestimated revenue by 1.3%, which is **significantly better than the expected error rate of 4.2%** and well within the conservative prediction range ($728M-$782M).
+
+**Why the prediction was low**: As anticipated in the limitations section, the snapshot methodology introduced downward bias. The model assumed all apartments listed on October 27 had been vacant for the entire quarter, when in reality many were only recently vacated. This caused the model to subtract $21.4M in "lost rent" that was actually collected earlier in Q3.
+
+**Key takeaway**: The 1.3% error validates the model's core pricing predictions while confirming that tracking listing duration over time (now implemented via daily scraping) is essential for accurate occupancy modeling. The prediction's accuracy despite this known limitation suggests the apartment-level pricing model (R² = 0.944) is robust.
+
+**Q4 2025 forecast improvement**: With daily scraping now active since October 28, the Q4 prediction will incorporate actual listing duration data, eliminating the snapshot bias that affected Q3.
 
 ---
 
