@@ -7,44 +7,153 @@ from datetime import datetime
 #file_path = "[insert directory path]/property_urls.csv"
 #output_file = "[insert directory path]/currently_available.csv"
 
-def fetch_units_from_api(api_url):
-    try:
-        response = requests.get(api_url, timeout=10)
-        
-        if response.status_code == 200:
-            return response.json()
-        else:
-            print(f"    ❌ API returned status {response.status_code}")
+def create_session():
+    session = requests.Session()
+
+    # Configure retry strategy
+    retry_strategy = Retry(
+        total=3,
+        backoff_factor=1,
+        status_forcelist=[429, 500, 502, 503, 504],
+        allowed_methods=["HEAD", "GET", "OPTIONS"]
+    )
+
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+
+    # Set browser-like headers
+    session.headers.update({
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/json, text/plain, */*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Connection': 'keep-alive',
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+    })
+
+    return session
+
+def fetch_units_from_api(session, api_url, max_retries=3):
+    """
+    Fetch data from API with proper error handling and retries
+    """
+    for attempt in range(max_retries):
+        try:
+            # Use stream=True to handle chunked encoding properly
+            response = session.get(api_url, timeout=30, stream=True)
+
+            if response.status_code == 200:
+                # Read the full response content
+                content = response.content
+
+                # Parse JSON
+                try:
+                    json_data = json.loads(content)
+                    return json_data
+                except json.JSONDecodeError as e:
+                    print(f"    ❌ JSON decode error: {e}")
+                    if attempt < max_retries - 1:
+                        print(f"    🔄 Retrying... (attempt {attempt + 2}/{max_retries})")
+                        time.sleep(2)
+                        continue
+                    return None
+            else:
+                print(f"    ❌ API returned status {response.status_code}")
+                if attempt < max_retries - 1:
+                    print(f"    🔄 Retrying... (attempt {attempt + 2}/{max_retries})")
+                    time.sleep(2)
+                    continue
+                return None
+
+        except requests.exceptions.ChunkedEncodingError as e:
+            print(f"    ❌ Chunked encoding error: {e}")
+            if attempt < max_retries - 1:
+                print(f"    🔄 Retrying... (attempt {attempt + 2}/{max_retries})")
+                time.sleep(2)
+                continue
             return None
-            
-    except Exception as e:
-        print(f"    ❌ Error: {e}")
-        return None
+
+        except requests.exceptions.Timeout:
+            print(f"    ❌ Request timeout")
+            if attempt < max_retries - 1:
+                print(f"    🔄 Retrying... (attempt {attempt + 2}/{max_retries})")
+                time.sleep(2)
+                continue
+            return None
+
+        except Exception as e:
+            print(f"    ❌ Error: {e}")
+            if attempt < max_retries - 1:
+                print(f"    🔄 Retrying... (attempt {attempt + 2}/{max_retries})")
+                time.sleep(2)
+                continue
+            return None
+
+    return None
 
 def parse_units(json_data, state, city, property_name, block_id):
     """
-    Parse units from JSON response
+    Parse units from Sightmap JSON response
     Returns: List of dicts with unit data
     """
     units_list = []
 
-    # Check if response has units
-    if not json_data or 'units' not in json_data:
+    # Check if response has the expected structure
+    if not json_data or 'data' not in json_data:
+        print(f"    ⚠️  Unexpected JSON structure - no 'data' key")
         return units_list
 
-    # Parse each unit
-    for unit in json_data['units']:
-        try:
-            # Extract price from nested structure
-            price = None
-            if 'startingAtPricesUnfurnished' in unit and unit['startingAtPricesUnfurnished']:
-                prices_obj = unit['startingAtPricesUnfurnished'].get('prices', {})
-                price = prices_obj.get('price')
+    data = json_data['data']
 
-            # Convert numeric fields to proper types (int or None)
-            bed_count = unit.get('bedroomNumber')
-            bath_count = unit.get('bathroomNumber')
-            sqft = unit.get('squareFeet')
+    if 'units' not in data:
+        print(f"    ⚠️  No 'units' in data")
+        return units_list
+
+    # Build floor plan lookup dictionary
+    floor_plan_lookup = {}
+    if 'floor_plans' in data:
+        for fp in data['floor_plans']:
+            floor_plan_lookup[fp['id']] = {
+                'bedroom_count': fp.get('bedroom_count'),
+                'bathroom_count': fp.get('bathroom_count'),
+                'name': fp.get('filter_label', '')
+            }
+
+    # Parse each unit
+    for unit in data['units']:
+        try:
+            # Get floor plan info
+            floor_plan_id = unit.get('floor_plan_id')
+            floor_plan_info = floor_plan_lookup.get(floor_plan_id, {})
+
+            # Extract fields from unit
+            unit_id = unit.get('id', '')
+            unit_number = unit.get('unit_number', '')
+            label = unit.get('label', '')
+            price = unit.get('price')
+            sqft = unit.get('area')
+
+            # Get floor number from floor_id if available
+            floor_number = ''
+            if 'floors' in data and unit.get('floor_id'):
+                for floor in data['floors']:
+                    if floor['id'] == unit['floor_id']:
+                        floor_number = floor.get('name', '')
+                        break
+
+            # Get bedroom and bathroom counts from floor plan
+            bed_count = floor_plan_info.get('bedroom_count')
+            bath_count = floor_plan_info.get('bathroom_count')
+
+            # Get web URL from outbound links (first non-null link)
+            web_url = ''
+            if 'outbound_links' in unit:
+                for link in unit['outbound_links']:
+                    if link and isinstance(link, dict) and 'url' in link:
+                        web_url = link['url']
+                        break
 
             current_timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
@@ -53,15 +162,15 @@ def parse_units(json_data, state, city, property_name, block_id):
                 'city': city,
                 'apt_complex': property_name,
                 'block_id': block_id,
-                'apt_id': unit.get('unitId', ''),
-                'apt_name': unit.get('unitName', ''),
+                'apt_id': unit_id,
+                'apt_name': label or unit_number,
                 'bed_count': int(bed_count) if bed_count is not None else '',
                 'bath_count': int(bath_count) if bath_count is not None else '',
                 'sqft': int(sqft) if sqft is not None else '',
-                'floor': str(unit.get('floorNumber', '')),
-                'floor_plan_id': '',
-                'unit_number': unit.get('unitId', ''),
-                'web_url': unit.get('url', ''),
+                'floor': str(floor_number),
+                'floor_plan_id': floor_plan_id or '',
+                'unit_number': unit_number,
+                'web_url': web_url,
                 'price': int(price) if price is not None else '',
                 'adjusted_price': '',
                 'first_seen': current_timestamp,
@@ -134,15 +243,19 @@ def add_binary_variables(df):
     return df
 
 def main():
+    # Create persistent session
+    session = create_session()
+
     # Load CSV
     print("Loading CSV...")
     df = pd.read_csv(file_path)
 
-    # Drop duplicates based on communityID to ensure one row per property
-    df = df.drop_duplicates(subset=['communityID'], keep='first')
+    # Use the 'Sitemap Url' column instead of 'communityID'
+    # Drop duplicates based on Sitemap Url to ensure one row per property
+    df = df.drop_duplicates(subset=['Sitemap Url'], keep='first')
 
-    # Filter out rows with missing communityID
-    df = df[df['communityID'].notna()]
+    # Filter out rows with missing Sitemap Url
+    df = df[df['Sitemap Url'].notna()]
 
     print(f"Loaded {len(df)} properties\n")
 
@@ -163,42 +276,50 @@ def main():
         print("No existing file found, will create new one\n")
 
     all_results = []
+    success_count = 0
+    fail_count = 0
 
-    # Process each property
+    # Process properties
     for idx, row in df.iterrows():
         state = row['state']
         city = row['city']
-        property_name = row['Unnamed: 4']  # Property name in AvalonMaster.csv
-        api_url = row['communityID']
+        property_name = row['Unnamed: 4']  #Name in AvalonMaster.csv
+        api_url = row['Sitemap Url']  #Sitemap Url in AvalonMaster.csv
         block_id = api_url.split('/')[-1] if isinstance(api_url, str) else ''
 
         print(f"[{idx+1}/{len(df)}] {property_name} ({city}, {state})")
 
-        # Fetch from API
+        #Fetch from API
         print(f"    → Fetching units from API...")
-        json_data = fetch_units_from_api(api_url)
+        json_data = fetch_units_from_api(session, api_url)
 
         if not json_data:
             print(f"    ✗ No data returned\n")
+            fail_count += 1
             continue
 
-        # Parse units
+        #Parse units
         units = parse_units(json_data, state, city, property_name, block_id)
 
         if len(units) == 0:
             print(f"    ✗ No units found\n")
+            fail_count += 1
             continue
 
-        print(f"    → Found {len(units)} units")
+        print(f"    ✓ Found {len(units)} units")
 
-        # Convert to DataFrame
+        #
         df_units = pd.DataFrame(units)
         all_results.append(df_units)
+        success_count += 1
 
         print()
 
         # Be polite to server
         time.sleep(0.5)
+
+    # Close session
+    session.close()
 
     # Combine all results
     if all_results:
@@ -251,15 +372,20 @@ def main():
             updated_df = updated_df.drop(columns=['first_seen_dt', 'last_seen_dt'])
 
         updated_df.to_csv(output_file, index=False)
-        print(f"\n✓ Saved {len(new_apartments)} new apartments to {output_file}")
-        print(f"   Updated {updated_count} existing apartments with new price and last_seen")
+        print(f"\n{'='*60}")
+        print(f"✓ SUCCESS SUMMARY")
+        print(f"{'='*60}")
+        print(f"   Properties scraped successfully: {success_count}/{len(df)}")
+        print(f"   Properties failed: {fail_count}/{len(df)}")
+        print(f"   New apartments added: {len(new_apartments)}")
+        print(f"   Existing apartments updated: {updated_count}")
         print(f"   Total apartments in file: {len(updated_df)}")
+        print(f"\n✓ Output file: {output_file}")
     else:
         print("\n✗ No data scraped")
+        print(f"   Properties failed: {fail_count}/{len(df)}")
 
-    print("="*60)
-    print(f"✓ COMPLETE!")
-    print(f"Output file: {output_file}")
+    print(f"{'='*60}")
 
 if __name__ == "__main__":
     main()
