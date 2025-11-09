@@ -187,6 +187,18 @@ Furnishing adjustment (10% furnished @ 41% premium):
 
 ---
 
+### Known Limitations
+
+This forecast has several important limitations. Most significantly, the prediction is based on a single snapshot taken on October 27, 2025, without any historical tracking of listing duration. The model assumes all apartments currently on the market have been vacant for the entire Q3 period, which likely introduces downward bias. In reality, many of these apartments were probably occupied for most of the quarter and only recently became available. This creates data corruption because recent move-outs are incorrectly counted as full-quarter vacancies. Without a backlog of previously scraped data showing how long each apartment has been listed, the model cannot distinguish between a unit vacant all quarter versus one that just hit the market yesterday.
+
+Additional limitations include 48 properties (14% of portfolio) that lack interactive maps and rely on estimated revenues, potential underrepresentation of properties under development or in lease-up phase, and incomplete capture of joint ventures and partial ownership structures.
+
+---
+
+**Result will be known on October 29, 2025**
+
+---
+
 ### Prediction vs. Consensus
 
 **Result will be known on October 29, 2025.** 
@@ -209,27 +221,13 @@ Edit from 31 October 2025:
 
 ### Analysis
 
-The model underestimated revenue by 1.3%, which is **significantly better than the expected error rate of 4.2%** and well within the conservative prediction range ($728M-$782M).
+The model underestimated revenue by 1.3%, which is significantly better than the expected error rate of 4.2% and well within the conservative prediction range ($728M-$782M).
 
-**Why the prediction was low**: As anticipated in the limitations section, the snapshot methodology introduced downward bias. The model assumed all apartments listed on October 27 had been vacant for the entire quarter, when in reality many were only recently vacated. This caused the model to subtract $21.4M in "lost rent" that was actually collected earlier in Q3.
+Why the prediction was low: As anticipated in the limitations section, the snapshot methodology introduced downward bias. The model assumed all apartments listed on October 27 had been vacant for the entire quarter (highly unlikely to be true), when in reality many were only recently vacated. This caused the model to subtract $21.4M in "lost rent" that was actually potentially collected earlier in Q3.
 
 **Key takeaway**: The 1.3% error validates the model's core pricing predictions while confirming that tracking listing duration over time (now implemented via daily scraping) is essential for accurate occupancy modeling. The prediction's accuracy despite this known limitation suggests the apartment-level pricing model (R² = 0.944) is robust.
 
 **Q4 2025 forecast improvement**: With daily scraping now active since October 28, the Q4 prediction will incorporate actual listing duration data, eliminating the snapshot bias that affected Q3.
-
----
-
-### Known Limitations
-
-This forecast has several important limitations. Most significantly, the prediction is based on a single snapshot taken on October 27, 2025, without any historical tracking of listing duration. The model assumes all apartments currently on the market have been vacant for the entire Q3 period, which likely introduces downward bias. In reality, many of these apartments were probably occupied for most of the quarter and only recently became available. This creates data corruption because recent move-outs are incorrectly counted as full-quarter vacancies. Without a backlog of previously scraped data showing how long each apartment has been listed, the model cannot distinguish between a unit vacant all quarter versus one that just hit the market yesterday.
-
-Additional limitations include 48 properties (14% of portfolio) that lack interactive maps and rely on estimated revenues, potential underrepresentation of properties under development or in lease-up phase, and incomplete capture of joint ventures and partial ownership structures.
-
----
-
-**Result will be known on October 29, 2025**
-
----
 
 
 ## Repository Structure
