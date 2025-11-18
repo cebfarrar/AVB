@@ -6,12 +6,16 @@ import pandas as pd
 
 #DecisionTreeRegressor option
 #AVB_model = DecisionTreeRegressor(random_state=1)
-
 AVB_model = RandomForestRegressor(n_estimators=100, random_state=1,n_jobs=-1)
-#file_path = "[insert directory path]/complete_portfolio.csv"
+file_path = "/Users/charlie/Desktop/Project/All_Properties.csv"
 AVB_data = pd.read_csv(file_path)
 
 print(AVB_data.columns)
+
+# Convert 'GR' (ground floor) to 0, and ensure floor is numeric
+AVB_data['floor'] = AVB_data['floor'].replace('GR', 0)
+AVB_data['floor'] = pd.to_numeric(AVB_data['floor'], errors='coerce')
+
 train_data = AVB_data[AVB_data['price'].notna()]
 y = train_data.price
 AVB_features = ['bed_count', 'bath_count', 'sqft', 'floor',
@@ -78,8 +82,8 @@ print(f"  R² Score: {r2:.4f}")
 print(f"Adjusted R² Score: {adj_r2:.4f}")
 
 #Edit 2 lines below in/out depending on need. Include if using scikitlearn to predict. Exclude to just get the R2 & MAE
-#AVB_data['adjusted_price'] = AVB_model.predict(X_all)
-#AVB_data.to_csv(file_path, index=False)
+AVB_data['adjusted_price'] = AVB_model.predict(X_all)
+AVB_data.to_csv(file_path, index=False)
 print(f"Total rows: {len(AVB_data)}")
 print(f"Trained on {len(train_data)} rows with known prices")
 print(f"Predicted for all {len(AVB_data)} rows")
